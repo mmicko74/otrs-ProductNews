@@ -1,0 +1,51 @@
+# --
+# ProductNewsSnippet.tt - provides HTML for ProductNews.pm
+# Copyright (C) 2015 Perl-Services.de, http://www.perl-services.de 
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="WidgetSimple">
+   <div class="Header">
+     <div class="WidgetAction Toggle">
+       <a href="#" title="[% Translate("All News") %]" aria-controls="ALLNEWS" aria-expanded="false">
+           <i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i>
+       </a>
+     </div>
+     <h2>[% Translate("All News") %]</h2>
+   </div>
+   <div id="ALLNEWS" class="Content">
+
+<table class="DataTable">
+    <tbody>
+[% RenderBlockStart("News") %]
+        <tr>
+            <td>
+                <span id="mark_as_read_[% Data.NewsID | html %]" title="[% Translate("Delete") | html %]">
+                    <i class="fa fa-times" style="cursor: pointer;"></i>
+                </span>
+                <a href="#" onclick="Core.UI.Dialog.DynamicContentDialog('AgentProductNews', [% Data.NewsID | uri %], 'ContentOnly', '[% Translate("News Item") | html %]');" title="[% Translate(Data.Teaser) | html %]" >
+                [% Translate(Data.Headline, "100") | html %]
+                </a>
+            </td>
+[% RenderBlockStart("Teaser") %]
+            <td>
+                <a href="#" onclick="Core.UI.Dialog.DynamicContentDialog('AgentProductNews', [% Data.NewsID | uri %], 'ContentOnly', '[% Translate("News Item") | html %]');">
+                [% Data.Teaser %]
+                </a>
+            </td>
+[% RenderBlockEnd("Teaser") %]
+[% RenderBlockStart("CreateByInformation") %]
+            <td>
+                [% Translate("created by") | html %]: [% Data.UserLastname %] [% Data.UserFirstname %] ([% Data.UserLogin %])
+            </td>
+[% RenderBlockEnd("CreateByInformation") %]
+        </tr>
+[% RenderBlockEnd("News") %]
+   </tbody>
+</table>
+
+   </div>
+</div>
